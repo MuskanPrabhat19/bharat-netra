@@ -1,0 +1,165 @@
+// Version: 3.0.0
+type AdminPrincipal__605853959 = ?Principal;
+type ArticleId__637629892 = Nat;
+type Article__78612817 =
+  {
+    author : Text;
+    bias_indicator : BiasIndicator__526289333;
+    body : Text;
+    category : Text;
+    classification : Classification__811649961;
+    fact_completeness_score : Nat;
+    headline : Text;
+    id : ArticleId__637629892;
+    no_contradiction_flag : Nat;
+    propaganda_analysis : PropagandaAnalysis__495375479;
+    publication_date : Int;
+    published : Bool;
+    source_outlet : Text;
+    source_reliability : SourceReliability__167287065;
+    source_reliability_score : Nat;
+    summary : Text;
+    truth_score : Nat
+  };
+type AuditLogEntry__505067381 =
+  {
+    action : Text;
+    id : Nat;
+    principal_text : Text;
+    resource_id : Text;
+    resource_title : Text;
+    timestamp : Int
+  };
+type BiasIndicator__526289333 = {#High; #Low; #Medium};
+type Classification__811649961 = {#Fact; #Opinion; #Unverified};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type LiveStream__780994853 =
+  {
+    description : Text;
+    embed_url : Text;
+    id : StreamId__531942695;
+    published : Bool;
+    source : Text;
+    start_time : Int;
+    status : StreamStatus__417070384;
+    title : Text
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type OldArticle__297329906 =
+  {
+    author : Text;
+    bias_indicator : OldBiasIndicator__585924551;
+    body : Text;
+    category : Text;
+    classification : OldClassification__354164632;
+    fact_completeness_score : Nat;
+    headline : Text;
+    id : Nat;
+    no_contradiction_flag : Nat;
+    propaganda_analysis : OldPropagandaAnalysis__912870070;
+    publication_date : Int;
+    source_outlet : Text;
+    source_reliability : OldSourceReliability__700381648;
+    source_reliability_score : Nat;
+    summary : Text;
+    truth_score : Nat
+  };
+type OldBiasIndicator__585924551 = {#High; #Low; #Medium};
+type OldClassification__354164632 = {#Fact; #Opinion; #Unverified};
+type OldLiveStream__516008088 =
+  {
+    description : Text;
+    embed_url : Text;
+    id : Nat;
+    source : Text;
+    start_time : Int;
+    status : OldStreamStatus__566377521;
+    title : Text
+  };
+type OldPropagandaAnalysis__912870070 =
+  {
+    emotional_manipulation : Bool;
+    fear_based_language : Bool;
+    ideological_pushing : Bool;
+    selective_facts : Bool;
+    suggested_rewrite : ?Text
+  };
+type OldSourceReliability__700381648 = {#High; #Low; #Medium};
+type OldStreamStatus__566377521 = {#Ended; #Live; #Upcoming};
+type PropagandaAnalysis__495375479 =
+  {
+    emotional_manipulation : Bool;
+    fear_based_language : Bool;
+    ideological_pushing : Bool;
+    selective_facts : Bool;
+    suggested_rewrite : ?Text
+  };
+type SourceReliability__167287065 = {#High; #Low; #Medium; #NotSet};
+type StreamId__531942695 = Nat;
+type StreamStatus__417070384 = {#Ended; #Live; #Upcoming};
+actor ({
+  stable adminState :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?AdminPrincipal__605853959]];
+      var elementIndex : Nat__490723111
+    };
+  in articles : List__415060402<OldArticle__297329906>;
+  stable auditState :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?AuditLogEntry__505067381]];
+      var elementIndex : Nat__490723111
+    };
+  stable var nextArticleId : Nat;
+  stable nextIdState :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable var nextStreamId : Nat;
+  in seeded : Bool;
+  in streams : List__415060402<OldLiveStream__516008088>
+}, {
+  stable adminState :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?AdminPrincipal__605853959]];
+      var elementIndex : Nat__490723111
+    };
+  stable articles :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Article__78612817]];
+      var elementIndex : Nat__490723111
+    };
+  stable auditState :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?AuditLogEntry__505067381]];
+      var elementIndex : Nat__490723111
+    };
+  stable var nextArticleId : Nat;
+  stable nextIdState :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable var nextStreamId : Nat;
+  stable var seeded : Bool;
+  stable streams :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?LiveStream__780994853]];
+      var elementIndex : Nat__490723111
+    }
+}) ;

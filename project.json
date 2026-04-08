@@ -1,0 +1,23 @@
+{
+  "overview": "Bharat Netra is India's independent truth network — a national-grade platform delivering verified news, live video, and public intelligence with zero propaganda and complete transparency. Every article is fact-checked, bias-scored, and clearly classified as Fact, Opinion, or Unverified.",
+  "features": [
+    "Verified news feed with Truth Score (0–100), Bias Indicator, and Source Reliability per article",
+    "Fact/Opinion/Unverified classification on every story",
+    "Propaganda detection: emotional manipulation, selective facts, fear-based language, ideological pushing",
+    "Live video section with LIVE/UPCOMING/ENDED stream status",
+    "Intelligence Dashboard with bias distribution, propaganda alert count, and verification stats",
+    "Dark navy + saffron national branding — No Godi. No Chatukar. Only Truth."
+  ],
+  "category": "news",
+  "tags": [
+    "news",
+    "fact-checking",
+    "india",
+    "transparency",
+    "journalism",
+    "truth",
+    "bias-detection",
+    "propaganda"
+  ],
+  "last_updated": "2026-04-08T04:09:48.218Z"
+}

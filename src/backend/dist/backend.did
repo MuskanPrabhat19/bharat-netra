@@ -1,0 +1,171 @@
+type StreamStatus = 
+ variant {
+   Ended;
+   Live;
+   Upcoming;
+ };
+type StreamId = nat;
+type SourceReliability = 
+ variant {
+   High;
+   Low;
+   Medium;
+   NotSet;
+ };
+type PropagandaAnalysis = 
+ record {
+   emotional_manipulation: bool;
+   fear_based_language: bool;
+   ideological_pushing: bool;
+   selective_facts: bool;
+   suggested_rewrite: opt text;
+ };
+type LiveStreamInput = 
+ record {
+   description: text;
+   embed_url: text;
+   source: text;
+   start_time: int;
+   status: StreamStatus;
+   title: text;
+ };
+type LiveStream = 
+ record {
+   description: text;
+   embed_url: text;
+   id: StreamId;
+   published: bool;
+   source: text;
+   start_time: int;
+   status: StreamStatus;
+   title: text;
+ };
+type DashboardStats = 
+ record {
+   high_bias_count: nat;
+   high_reliability_count: nat;
+   last_updated: int;
+   low_bias_count: nat;
+   low_reliability_count: nat;
+   medium_bias_count: nat;
+   medium_reliability_count: nat;
+   opinion_count: nat;
+   propaganda_alert_count: nat;
+   total_articles: nat;
+   unverified_count: nat;
+   verified_count: nat;
+ };
+type Classification = 
+ variant {
+   Fact;
+   Opinion;
+   Unverified;
+ };
+type BiasIndicator = 
+ variant {
+   High;
+   Low;
+   Medium;
+ };
+type AuditLogEntry = 
+ record {
+   action: text;
+   id: nat;
+   principal_text: text;
+   resource_id: text;
+   resource_title: text;
+   timestamp: int;
+ };
+type ArticleInput = 
+ record {
+   author: text;
+   bias_indicator: BiasIndicator;
+   body: text;
+   category: text;
+   classification: Classification;
+   fact_completeness_score: nat;
+   headline: text;
+   no_contradiction_flag: nat;
+   propaganda_analysis: PropagandaAnalysis;
+   publication_date: int;
+   source_outlet: text;
+   source_reliability: SourceReliability;
+   source_reliability_score: nat;
+   summary: text;
+ };
+type ArticleId = nat;
+type Article = 
+ record {
+   author: text;
+   bias_indicator: BiasIndicator;
+   body: text;
+   category: text;
+   classification: Classification;
+   fact_completeness_score: nat;
+   headline: text;
+   id: ArticleId;
+   no_contradiction_flag: nat;
+   propaganda_analysis: PropagandaAnalysis;
+   publication_date: int;
+   published: bool;
+   source_outlet: text;
+   source_reliability: SourceReliability;
+   source_reliability_score: nat;
+   summary: text;
+   truth_score: nat;
+ };
+type AdminResult = 
+ variant {
+   err: text;
+   ok: text;
+ };
+service : {
+  adminSubmitArticle: (input: ArticleInput) ->
+   (variant {
+      err: text;
+      ok: ArticleId;
+    });
+  adminSubmitStream: (input: LiveStreamInput) ->
+   (variant {
+      err: text;
+      ok: StreamId;
+    });
+  clearAuditLog: () -> (AdminResult);
+  deleteArticle: (id: ArticleId) -> (variant {
+                                       err: text;
+                                       ok: text;
+                                     });
+  deleteStream: (id: StreamId) -> (variant {
+                                     err: text;
+                                     ok: text;
+                                   });
+  getAdminPrincipalText: () -> (text) query;
+  getArticle: (id: ArticleId) -> (opt Article) query;
+  getArticles: () -> (vec Article) query;
+  getAuditLog: (offset: nat, limit: nat) -> (vec AuditLogEntry) query;
+  getDashboardStats: () -> (DashboardStats) query;
+  getPublishedArticles: () -> (vec Article) query;
+  getPublishedStreams: () -> (vec LiveStream) query;
+  getStreams: () -> (vec LiveStream) query;
+  initAdmin: () -> (AdminResult);
+  isAdmin: () -> (bool) query;
+  toggleArticlePublished: (id: ArticleId) -> (variant {
+                                                err: text;
+                                                ok: text;
+                                              });
+  toggleStreamPublished: (id: StreamId) -> (variant {
+                                              err: text;
+                                              ok: text;
+                                            });
+  transferAdmin: (newPrincipalText: text) -> (AdminResult);
+  updateArticle: (id: ArticleId, input: ArticleInput) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  updateStream: (id: StreamId, input: LiveStreamInput) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+}
